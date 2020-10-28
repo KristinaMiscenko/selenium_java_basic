@@ -40,9 +40,13 @@ public class Sample3Task {
 //         check how many element with class "test" there are on page (5)
 //         check that value of second button is "This is also a button"
 
-        int expectedNumberOfElements = 5;
-        int actualNumberOfElements = driver.findElements(By.className("randomButton2")).size();
-        assertEquals(expectedNumberOfElements, actualNumberOfElements);
+        int expected = 5;
+        int actual = driver.findElements(By.className("test")).size();
+        assertEquals(expected, actual);
+
+        String expectedStr = "This is also a button";
+        String actualStr = driver.findElement(By.name("randomButton2")).getAttribute("value");
+        assertEquals(expectedStr, actualStr);
     }
 
     @Test
@@ -51,14 +55,8 @@ public class Sample3Task {
 //         check that it is True that value of second button is
 //         "this is Also a Button" if you ignore Caps Locks
 //         fail with custom error message:
-        String elementTextOnPage = driver.findElement(By.cssSelector("randomButton2")).getText();
-        assertTrue(elementTextOnPage.equals("This is also a button"));
-//        assertTrue("Expecting the element with class 'unbelievable' to have text 'ajshdka'", elementTextOnPage.contains("ajshdka"));
-        assertTrue(elementTextOnPage.equalsIgnoreCase("This is ALso a buTTon"));
-        // pass:
-        assertTrue(true);
-        // fail:
-//        assertTrue(false);
+        String element = driver.findElement(By.name("randomButton2")).getAttribute("value");
+        assertTrue("Custom message", element.equalsIgnoreCase("this is Also a Button"));
 
     }
 
@@ -66,14 +64,8 @@ public class Sample3Task {
     public void assertFalseTask() throws Exception {
 //         TODO:
 //        check that it is False that value of second button is "This is a button"
-        String elementTextOnPage = driver.findElement(By.cssSelector("randomButton2")).getText();
-        assertFalse(!elementTextOnPage.equals("This is also a button"));
-        assertFalse(elementTextOnPage.equals("wrong text"));
-        assertFalse(elementTextOnPage.contains("wrong text"));
-        // fail:
-//        assertFalse(true);
-        // pass:
-        assertFalse(false);
+        String element = driver.findElement(By.id("buttonId")).getAttribute("value");
+        assertFalse(element.equals("This is a button"));
     }
 
     @Test
@@ -81,13 +73,9 @@ public class Sample3Task {
 //        TODO:
 //        check that none of items with class "test"
 //        contain number 190
-        String elementTextOnPage = driver.findElement(By.cssSelector("test")).getText();
-        assertFalse(!elementTextOnPage.equals("190"));
-        assertFalse(elementTextOnPage.equals("wrong text"));
-        assertFalse(elementTextOnPage.contains("wrong text"));
-        // fail:
-//        assertFalse(true);
-        // pass:
-        assertFalse(false);
+        List<WebElement> elements = driver.findElements(By.className("test"));
+        for (WebElement elem : elements) {
+            assertTrue(!elem.getText().contains("190"));
+        }
     }
 }

@@ -28,6 +28,6 @@ public class Sample1Task {
         System.out.println(driver.getCurrentUrl());
 
 //         close browser
-        driver.quit();
+        driver.close();
     }
 }

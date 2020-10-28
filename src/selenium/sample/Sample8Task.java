@@ -17,8 +17,8 @@ public class Sample8Task {
     @Before
     public void startingTests() throws Exception {
         // from Sample 1:
-        String libWithDriversLocation = System.getProperty("user.dir") + "\\lib\\";
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver.exe");
+        String libWithDriversLocation = System.getProperty("user.dir") + "/lib/";
+        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver");
         // declaration above:
         driver = new ChromeDriver();
 
@@ -36,7 +36,13 @@ public class Sample8Task {
     public void styleChecks() throws Exception {
 //         TODO:
 //        check the background of top 2 sections
+        WebElement section1 = driver.findElement(By.cssSelector(".w3-pale-red"));
+        assertEquals("rgba(255, 221, 221, 1)", section1.getCssValue("background-color"));
 //        rgba(255, 221, 221, 1);
+        WebElement section2 = driver.findElement(By.className("w3-pale-yellow"));
+        assertEquals("rgba(255, 255, 204, 1)", section2.getCssValue("background-color"));
 //        check h1 element font-size 64px
+        WebElement h1 = driver.findElement(By.cssSelector("h1"));
+        assertEquals("64px", h1.getCssValue("font-size"));
     }
 }
